@@ -4,8 +4,11 @@ import pandas as pd
 import string
 import re
 import pickle
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors=CORS()
+cors.init_app(app)
 
 
 def wordopt(text):
@@ -86,11 +89,19 @@ def data():
         ans = manual_testing(news, model, vectorization)
         return render_template('data.html',form_data =ans)
 
-@app.route('/react')
+# @app.route('/react')
+# def react1():
+#     if request.method == 'GET':
+#         news=request.json["data"]
+#         ans = manual_testing(news, model, vectorization)
+#         return jsonify(ans)
+
+@app.route('/react',methods=['POST', 'GET'])
 def react1():
-    if request.method == 'GET':
-        news=request.json["data"]
+        news = request.json["data"]
         ans = manual_testing(news, model, vectorization)
+        print(ans)
+        print(news)
         return jsonify(ans)
 
 if __name__ == "__main__":

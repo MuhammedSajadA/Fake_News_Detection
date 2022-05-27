@@ -6,7 +6,6 @@ import re
 import string
 import pickle
 
-
 df_fake = pd.read_csv("Fake.csv")
 df_true = pd.read_csv("True.csv")
 
@@ -148,32 +147,26 @@ xv_test = vectorization.transform(x_test)
 # In[28]:
 
 
-from sklearn.linear_model import LogisticRegression
+# from sklearn.linear_model import LogisticRegression
 
 # In[29]:
 
 
-LR = LogisticRegression()
-LR.fit(xv_train, y_train)
+# LR = LogisticRegression()
+# LR.fit(xv_train, y_train)
 
 # In[30]:
 
 
-pred_lr = LR.predict(xv_test)
+# pred_lr = LR.predict(xv_test)
 
 # In[31]:
 
 
-LR.score(xv_test, y_test)
-with open('vector.pkl', 'wb') as file:
-    # A new file will be created
-    pickle.dump(vectorization, file)
-# In[32]:
-with open('model.pkl', 'wb') as file:
-    # A new file will be created
-    pickle.dump(LR, file)
+# LR.score(xv_test, y_test)
 
-print(classification_report(y_test, pred_lr))
+
+# print(classification_report(y_test, pred_lr))
 
 
 # # ### 2. Decision Tree Classification
@@ -214,32 +207,42 @@ print(classification_report(y_test, pred_lr))
 # # In[45]:
 #
 #
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
+
 #
 #
 # # In[46]:
 #
 #
-# RFC = RandomForestClassifier(random_state=0)
-# RFC.fit(xv_train, y_train)
+RFC = RandomForestClassifier(random_state=0)
+RFC.fit(xv_train, y_train)
 #
 #
 # # In[47]:
 #
 #
-# pred_rfc = RFC.predict(xv_test)
+pred_rfc = RFC.predict(xv_test)
 #
 #
 # # In[48]:
 #
 #
-# RFC.score(xv_test, y_test)
+RFC.score(xv_test, y_test)
 #
 #
 # # In[49]:
 #
-#
-# print(classification_report(y_test, pred_rfc))
+with open('vector.pkl', 'wb') as file:
+    # A new file will be created
+    pickle.dump(vectorization, file)
+# In[32]:
+with open('model.pkl', 'wb') as file:
+    # A new file will be created
+    pickle.dump(RFC, file)
+
+print(classification_report(y_test, pred_rfc))
+
+
 #
 #
 # # #### 4. The k-Nearest Neighbors
@@ -320,4 +323,3 @@ def output_lable(n):
         return "Fake News"
     elif n == 1:
         return "Not A Fake News"
-
