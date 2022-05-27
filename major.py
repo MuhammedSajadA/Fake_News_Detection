@@ -1,5 +1,5 @@
 #
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import string
 import re
@@ -86,6 +86,12 @@ def data():
         ans = manual_testing(news, model, vectorization)
         return render_template('data.html',form_data =ans)
 
+@app.route('/react')
+def react1():
+    if request.method == 'GET':
+        news=request.json["data"]
+        ans = manual_testing(news, model, vectorization)
+        return jsonify(ans)
 
 if __name__ == "__main__":
     app.run(debug=True)
