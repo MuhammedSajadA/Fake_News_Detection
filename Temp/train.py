@@ -6,8 +6,8 @@ import re
 import string
 import pickle
 
-df_fake = pd.read_csv("Fake.csv")
-df_true = pd.read_csv("True.csv")
+df_fake = pd.read_csv("Temp/Fake.csv")
+df_true = pd.read_csv("Temp/True.csv")
 
 # In[6]:
 
@@ -207,40 +207,32 @@ xv_test = vectorization.transform(x_test)
 # # In[45]:
 #
 #
-from sklearn.ensemble import RandomForestClassifier
+# from sklearn.ensemble import RandomForestClassifier
 
 #
 #
 # # In[46]:
 #
 #
-RFC = RandomForestClassifier(random_state=0)
-RFC.fit(xv_train, y_train)
+# RFC = RandomForestClassifier(random_state=0)
+# RFC.fit(xv_train, y_train)
 #
 #
 # # In[47]:
 #
 #
-pred_rfc = RFC.predict(xv_test)
+# pred_rfc = RFC.predict(xv_test)
 #
 #
 # # In[48]:
 #
 #
-RFC.score(xv_test, y_test)
+# RFC.score(xv_test, y_test)
 #
 #
 # # In[49]:
 #
-with open('vector.pkl', 'wb') as file:
-    # A new file will be created
-    pickle.dump(vectorization, file)
-# In[32]:
-with open('model.pkl', 'wb') as file:
-    # A new file will be created
-    pickle.dump(RFC, file)
 
-print(classification_report(y_test, pred_rfc))
 
 
 #
@@ -283,32 +275,32 @@ print(classification_report(y_test, pred_rfc))
 # # In[54]:
 #
 #
-# from sklearn import svm
+from sklearn import svm
 #
 #
 # # In[ ]:
 #
 #
-# SVM = svm.SVC()
-# SVM.fit(xv_train, y_train)
+SVM = svm.SVC()
+SVM.fit(xv_train, y_train)
 #
 #
 # # In[46]:
 #
 #
-# pred_svm = SVM.predict(xv_test)
+pred_svm = SVM.predict(xv_test)
 #
 #
 # # In[47]:
 #
 #
-# SVM.score(xv_test, y_test)
+SVM.score(xv_test, y_test)
 #
 #
 # # In[48]:
 #
 #
-# print(classification_report(y_test, pred_svm))
+print(classification_report(y_test, pred_svm))
 #
 
 # # Model Testing With Manual Entry
@@ -316,6 +308,16 @@ print(classification_report(y_test, pred_rfc))
 # ### News
 
 # In[36]:
+
+with open('vector_svm.pkl', 'wb') as file:
+    # A new file will be created
+    pickle.dump(vectorization, file)
+# In[32]:
+with open('model_svm.pkl', 'wb') as file:
+    # A new file will be created
+    pickle.dump(SVM, file)
+
+print(classification_report(y_test, pred_svm))
 
 
 def output_lable(n):
